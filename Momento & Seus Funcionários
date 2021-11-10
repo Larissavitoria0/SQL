@@ -1,0 +1,119 @@
+1 - Inclua suas próprias informações no departamento de tecnologia da empresa. *
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id)
+VALUES ('Larissa', 'Vitória', 'larissamoura0987@gmail.com', 081.475.3341, 09-11-2021, 9 , 8000.00, NULL, 6)
+
+2 - A administração está sem funcionários. Inclua os outros elementos do seu grupo do demoday no departamento de administração. *
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id)
+VALUES ('Igor', 'Vinnycius', 'igorvinnycius@gmail.com', 213.876.8175, 1998-11-22, 3 , 5000.00, NULL, 1);
+
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id)
+VALUES ('Emily', 'Souza', 'emilysouza@gmail.com', 342.002.1267 1999-01-25, 3 , 5000.00, NULL, 1);
+
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) VALUES ('Gabriel', 'Verdani', 'gabrielverdani@gmail.com', 475.555.0321, 2005-05-10, 3 , 5000.00, NULL, 1);
+
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) VALUES ('Nathan', 'Oliveira', 'nathanoliveira@gmail.com', 151.226.0909, 2012-03-09, 3 , 5000.00, NULL, 1);
+
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) VALUES ('Rafael', 'Silva', 'rafaelsilva@gmail.com', 001.112.1100 , 2014-11-05, 3 , 5000.00, NULL, 1);
+
+INSERT INTO `funcionarios` (primeiro_nome, sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) VALUES ('Lucas', 'Eduardo', 'lucaseduardo@gmail.com', 1181.963.5565, 2017-08-02, 3 , 5000.00, NULL, 1);
+
+3 - Agora diga, quantos funcionários temos ao total na empresa? *
+Total de funcionários da empresa é 47.
+
+SELECT count(*) FROM funcionarios;
+
+4 - Quantos funcionários temos no departamento de finanças? *
+No departamento de finanças tem 6 funcionários.
+
+SELECT COUNT(*) FROM funcionarios WHERE departamento_id = 10;
+
+5 - Qual a média salarial do departamento de tecnologia? *
+A média salarial do departamento de tecnologia é de 6133.333333.
+
+SELECT AVG(salario) FROM funcionarios WHERE departamento_id = 6;
+
+6 - Quanto o departamento de Transportes gasta em salários? *
+O departamento de transporte gasta 41200.00.
+
+SELECT SUM(salario) FROM funcionarios WHERE departamento_id = 5;
+
+7 - Um novo departamento foi criado. O departamento de inovações. Ele será locado no Brasil. Por favor, adicione-o no banco de dados. *
+INSERT INTO departamento VALUES 
+(DEFAULT,'Inovações',5400);
+
+8 - Novos Funcionários!
+Três novos funcionários foram contratados para o departamento de inovações. 
+Por favor, adicione-os: William Ferreira, casado com Inara Ferreira, possui um filho chamado Gabriel que tem 4 anos e adora brincar com cachorros.
+Ele será programador.Já a Fernanda Lima, que é casada com o Rodrigo, não possui filhos. Ela vai ocupar a posição de desenvolvedora. 
+Por último, a Gerente do departamento será Fabiana Raulino. Casada, duas filhas (Maya e Laura). 
+
+O salário de todos eles será a média salarial dos departamentos de administração e finanças. 
+Query com a resposta *
+Select avg(salario) from funcionarios
+where departamento_id = 1 or departamento_id = 10;
+
+INSERT INTO ocupacoes values 
+(DEFAULT,'Programador','4000','20000'),
+(DEFAULT,'Gerente de inovaçoes','4000','30000');
+
+
+select * from funcionarios;
+ALTER TABLE funcionarios AUTO_INCREMENT = 216;
+
+insert into funcionarios values 
+(DEFAULT,'Fabiana ','Raulino','fabianaRaulino@gmail.com',null, '2021-05-23', 21,'6000',100,12);
+
+
+
+insert into funcionarios values 
+(DEFAULT,'William ','Ferreira','WilliamFerreira@gmail.com',null, '2021-05-23', 20,'6000',216,12),
+(DEFAULT,'Fernanda ','Lima','FernandaLima@gmail.com',null, '2021-05-23', 9,'6000',216,12);
+
+insert into dependentes values 
+(DEFAULT,'Inara','Ferreira','Cônjuge',217),
+(DEFAULT,'Gabriel','Ferreira','Filho(a)',217),
+(DEFAULT,'Rodrigo',Null,'Cônjuge',218),
+(DEFAULT,'Maya','Raulino','Filho(a)',216),
+(DEFAULT,'Laura','Raulino','Filho(a)',216);
+
+9 - Informe todas as regiões em que a empresa atua acompanhadas de seus países. *
+SELECT p.pais_name, r.regiao_name FROM paises AS p JOIN regiao AS r ON p.regiao_id = r.regiao_id;
+Filho de quem?
+
+10 - Joe Sciarra é filho de quem? *
+SELECT d.primeiro_nome,d.parentesco,f.primeiro_nome, f.sobrenome FROM dependentes AS d JOIN funcionarios AS f ON d.funcionario_id = f.funcionario_id WHERE d.primeiro_nome LIKE 'Joe';
+
+11 - Jose Manuel possui filhos? *
+SELECT d.primeiro_nome,d.sobrenome, d.parentesco,f.primeiro_nome, f.sobrenome FROM dependentes AS d JOIN funcionarios AS f ON d.funcionario_id = f.funcionario_id WHERE f.primeiro_nome LIKE 'Jose%';
+
+12 - Qual região possui mais países? *
+ Europa, possui 8 países.
+
+SELECT f.funcionario_id,f.primeiro_nome,f.sobrenome,d.dependente_id,d.primeiro_nome, d.sobrenome FROM funcionarios AS f JOIN dependentes AS d ON f.funcionario_id = d.funcionario_id;
+
+13 - Exiba o nome cada funcionário acompanhado de seus dependentes. *
+SELECT f.funcionario_id,f.primeiro_nome,f.sobrenome,d.dependente_id,d.primeiro_nome, d.sobrenome FROM funcionarios AS f JOIN dependentes AS d ON f.funcionario_id = d.funcionario_id;
+
+14 - Karen Partners possui um cônjuge? *
+SELECT d.primeiro_nome,d.sobrenome, d.parentesco,f.primeiro_nome, f.sobrenome FROM dependentes AS d JOIN funcionarios AS f ON d.funcionario_id = f.funcionario_id WHERE f.primeiro_nome LIKE 'karen%';
+
+15 - O ID da tabela de países não segue um padrão numérico. Na sua visão, qual o impacto disso no desenvolvimento do banco? *
+Acho que pode deixar um pouco confuso quando for verificar os dados ou inseri-los no Banco. 
+Parabéns!
+Por ter feito um ótimo trabalho, você acaba de ser promovido. Você terá seu próprio departamento em algum dos países que a empresa já atua. 
+
+16 - Escolha um país para se mudar. Qual seria esse país? Por que escolheria esse país? E o departamento. O que seria? Como seriam seus funcionários? *
+- Spadina Avenue, Toronto, Ontario CA,
+- Por que é um lugar bonito e que recebe muitos turistas,
+- Setor comercial,
+- Homens e Mulheres que atuam desde a prospecção de clientes até o pós-venda, com o intuito de entender as necessidades dos consumidores e garantir satisfação.
+
+17 - Atualize as informações na tabela para que seu departamento seja criado. *
+INSERT INTO `departamento` (`departamento_id`, `departamento_name`, `posicao_id`) VALUES ('13', 'Setor comercial', '1800');
+
+18 - Como você trataria seus funcionários? *
+- Tratar os funcionários igualmente,
+- Delegar funções,
+- Manter o foco da equipe,
+- Ser transparente ,
+- Impor limites.
